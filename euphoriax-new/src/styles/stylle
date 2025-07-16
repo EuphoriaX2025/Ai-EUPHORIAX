@@ -1,0 +1,363 @@
+////////////////////////////////////////////////////////////////
+// Bootstrap 5 & Plugins
+////////////////////////////////////////////////////////////////
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import url('https://cdn.jsdelivr.net/npm/splide@4.1.4/dist/css/splide.min.css');
+@import url('https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css');
+
+////////////////////////////////////////////////////////////////
+// Template Base
+////////////////////////////////////////////////////////////////
+@import './mobile-wallet.css';
+@import '../assets/css/style.css';
+@import 'font';
+@import 'variables';
+@import 'body';
+@import 'layout/header';
+@import 'layout/bottomMenu';
+@import 'layout/content';
+@import 'layout/sidebar';
+@import 'layout/footer';
+@import 'ui';
+@import 'blocks';
+@import 'rtl';
+@import 'darkmode';
+
+
+//================================================================//
+//                                                                //
+//     بخش کدهای سفارشی و بهینه‌سازی‌های آریون کدنوس کاسموس       //
+//                                                                //
+//================================================================//
+
+
+/*
+----------------------------------------------------------------
+1. استایل‌های مربوط به کارت‌های کیهانی (صفحه پکیج‌ها)
+----------------------------------------------------------------
+*/
+
+/* --- استایل پایه و افکت هاور --- */
+.card-block {
+    color: #FFFFFF !important;
+    transition: transform 0.4s ease, box-shadow 0.4s ease !important;
+    overflow: hidden !important;
+    padding: 16px !important;
+}
+.card-block:hover {
+    transform: translateY(-8px) scale(1.03) !important;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.25) !important;
+}
+.card-main {
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}
+
+/* --- استایل جدید برای نمایش تعداد انتخاب شده --- */
+.selected-quantity {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #a1a1a1;
+    letter-spacing: 0.04em;
+    font-family: 'Inter', sans-serif;
+}
+
+/* --- استایل‌های رنگ‌بندی کارت‌ها --- */
+.card-classic-s1 { background: radial-gradient(ellipse at 70% 30%, #3a7c8e 0%, transparent 50%), radial-gradient(ellipse at 30% 80%, #1e3a5f 0%, transparent 60%), #0d1226 !important; }
+.card-vip-s1 { background: radial-gradient(ellipse at 50% 50%, #00d1a3 0%, #0c3d3e 80%), #05141e !important; }
+.card-classic-s2 { background: radial-gradient(ellipse at 70% 80%, #5a6d8c 0%, transparent 60%), radial-gradient(ellipse at 30% 20%, #b26c45 0%, transparent 50%), #0b1023 !important; }
+.card-vip-s2 { background: radial-gradient(circle at 50% 50%, #2f2757 0%, #a258a4 60%, #e7846d 90%), #100f24 !important; }
+.card-classic-s3 { background: radial-gradient(ellipse at 80% 20%, #faff78 0%, transparent 50%), radial-gradient(ellipse at 20% 80%, #68e673 0%, transparent 60%), #062e15 !important; }
+.card-vip-s3 { background: radial-gradient(circle at 50% 50%, #0f3939 0%, #16655c 60%, #44f0c9 90%), #021a20 !important; }
+.card-classic-s4 { background: radial-gradient(ellipse at 50% 50%, #ff8c4f 0%, #2c72be 60%), #080d24 !important; }
+.card-vip-s4 { background: radial-gradient(ellipse at 50% 50%, #e65cff 0%, #4b2d9b 60%), #040221 !important; }
+.card-classic-s5 { background: radial-gradient(ellipse at 50% 50%, #ffdadd 0%, #d42e61 50%), #4d001c !important; }
+.card-vip-s5 { background: radial-gradient(circle at 20% 30%, #ff2a6d 0%, #5a001d 50%), radial-gradient(circle at 80% 70%, #ff2a6d 0%, #5a001d 50%), #000000 !important; }
+.card-classic-s6 { background: radial-gradient(ellipse at 50% 50%, #FFD700 0%, #FFB300 50%), #1c1000 !important; }
+.card-vip-s6 { background: radial-gradient(ellipse at 70% 30%, #ffcc00 0%, transparent 60%), radial-gradient(ellipse at 30% 70%, #ff6600 0%, transparent 50%), #1a0800 !important; }
+.card-classic-s7 { background: conic-gradient(from 90deg at 50% 50%, #ff00ff, #00ffff, #ffff00, #ff00ff) !important; }
+.card-vip-s7 { background: radial-gradient(ellipse at center, #000 15%, transparent 60%), conic-gradient(from 180deg at 50% 50%, #6a0dad, #0000ff, #00ffff, #ff00ff, #6a0dad) !important; animation: holo-glow 8s linear infinite; }
+@keyframes holo-glow { from { filter: hue-rotate(0deg); } to { filter: hue-rotate(360deg); } }
+
+/* --- واکنش‌گرایی کارت‌ها برای موبایل --- */
+@media (max-width: 767px) {
+  .card-block {
+    padding: 12px !important;
+  }
+  .card-block .balance .title {
+    font-size: 1.2rem !important;
+  }
+  .card-block .in .card-number, .card-block .in .bottom {
+    font-size: 0.8rem;
+  }
+}
+
+/*
+----------------------------------------------------------------
+2. بهینه‌سازی‌های آیکون منوی پایین
+----------------------------------------------------------------
+*/
+.saturn-icon-static-rotate {
+  transform: rotate(-25deg);
+  transition: transform 0.3s ease;
+}
+.item.active .saturn-icon-static-rotate {
+  transform: rotate(0deg);
+}
+
+/*
+----------------------------------------------------------------
+3. استایل‌های تکامل یافته‌ی هاب صرافی
+----------------------------------------------------------------
+*/
+// متغیرهای رنگی برای تم روشن و تاریک
+$exchange-bg-dark: #0f0b21;
+$exchange-input-bg-dark: #1f1b33;
+$exchange-border-dark: rgba(118, 79, 234, 0.5);
+$exchange-text-dark: #e0e0e0;
+
+$exchange-bg-light: #f4f5f7;
+$exchange-input-bg-light: #ffffff;
+$exchange-border-light: #dcdcdc;
+$exchange-text-light: #1a1a1a;
+
+
+
+.exchange-input-group {
+    background-color: $exchange-input-bg-light;
+    border: 1px solid $exchange-border-light;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    padding: 15px;
+    margin-bottom: 20px;
+    
+    body.dark-mode & {
+        background-color: $exchange-input-bg-dark;
+        border-color: $exchange-border-dark;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .input-row {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    input {
+        background: transparent !important;
+        border: none !important;
+        color: $exchange-text-light !important;
+        font-size: 1.8rem;
+        font-weight: 700;
+        width: 100%;
+        padding: 0 !important;
+        
+        body.dark-mode & {
+            color: $exchange-text-dark !important;
+        }
+    }
+    
+    .currency-selector {
+        font-size: 1.5rem;
+        font-weight: 700;
+        cursor: pointer;
+        padding: 5px;
+        color: $exchange-text-light;
+        
+        body.dark-mode & {
+            color: $exchange-text-dark;
+        }
+    }
+}
+
+@keyframes magnetic-pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4); }
+  50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+}
+
+.btn-swap-pulse {
+    width: 60px;
+    height: 60px;
+    font-size: 1.8rem;
+    background: linear-gradient(45deg, #ffd700, #f0c000);
+    border: 2px solid #fff;
+    color: #1a1a1a;
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+    animation: magnetic-pulse 2s infinite ease-out;
+}
+
+.exchange-info-box {
+    font-size: 0.9rem;
+    color: #a9a4c4;
+}
+
+/* ================================================================ */
+/* === تکامل نهایی و کامل هاب صرافی - توسط آریون === */
+/* ================================================================ */
+
+// متغیرهای رنگی برای تم‌ها
+$exchange-bg-dark: #0f0b21;
+$exchange-input-bg-dark: #1f1b33;
+$exchange-border-dark: rgba(118, 79, 234, 0.5);
+$exchange-text-dark: #e0e0e0;
+
+$exchange-bg-light: #f4f5f7;
+$exchange-input-bg-light: #ffffff;
+$exchange-border-light: #e1e1e1;
+$exchange-text-light: #1a1a1a;
+
+.exchange-page-container {
+    background: $exchange-bg-light;
+    padding-top: 20px;
+    min-height: 100vh;
+}
+
+body.dark-mode .exchange-page-container {
+    background: $exchange-bg-dark;
+}
+
+// بهبود ۴: باکس اصلی شفاف
+.exchange-box {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+// بهبود ۲: استایل برجسته باکس‌های ورودی
+.exchange-input-group {
+    background-color: $exchange-input-bg-light;
+    border: 1px solid $exchange-border-light;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    padding: 15px;
+    margin-bottom: 8px;
+    
+    body.dark-mode & {
+        background-color: $exchange-input-bg-dark;
+        border-color: $exchange-border-dark;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+}
+
+.exchange-input-group .input-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    input {
+        background: transparent !important;
+        border: none !important;
+        color: $exchange-text-light !important;
+        font-size: 1.8rem;
+        font-weight: 700;
+        width: 100%;
+        padding: 0 !important;
+        
+        body.dark-mode & {
+            color: $exchange-text-dark !important;
+        }
+    }
+    
+    // بهبود ۵: حذف کادر دور نام ارز
+    .currency-selector {
+        font-size: 1.6rem;
+        font-weight: 700;
+        cursor: pointer;
+        padding: 5px;
+        color: $exchange-text-light;
+        
+        body.dark-mode & {
+            color: $exchange-text-dark;
+        }
+    }
+}
+
+// بهبود ۱: دکمه Swap بزرگتر با انیمیشن نبض‌گونه
+@keyframes magnetic-pulse-swap {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.4); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(255, 193, 7, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 193, 7, 0); }
+}
+
+.btn-swap-container {
+    margin: -28px 0; // ایجاد همپوشانی
+    position: relative;
+    z-index: 2;
+}
+.btn-swap-pulse {
+    width: 60px;
+    height: 60px;
+    font-size: 1.8rem;
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    border: 3px solid #fff;
+    color: #333;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    animation: magnetic-pulse-swap 2s infinite;
+    
+    body.dark-mode & {
+        border-color: $exchange-input-bg-dark;
+    }
+}
+.card-block .card-button {
+    display: block !important;
+    opacity: 1 !important;
+    z-index: 10;
+}
+.card-block .card-button .btn-icon {
+    color: rgba(255, 255, 255, 0.8) !important; 
+    transition: all 0.3s ease;
+}
+.card-block .card-button .btn-icon:hover {
+    color: #FFFFFF !important; 
+    transform: scale(1.1);
+}
+/* ================================================================ */
+/* === اصلاح رنگ متن گزارش در تم تاریک === */
+/* ================================================================ */
+
+body.dark-mode .report-summary-card .card-body {
+    // تمام متن‌های داخل این کارت در حالت تاریک، روشن می‌شوند
+    color: #e0e0e0;
+  }
+  
+  body.dark-mode .report-summary-card .card-body .text-muted {
+    // رنگ متن‌های خاکستری را در حالت تاریک، روشن‌تر می‌کنیم
+    color: #a9a4c4 !important;
+  }
+  
+  body.dark-mode .report-summary-card .card-body hr {
+    // رنگ خط جداکننده را در حالت تاریک، قابل مشاهده می‌کنیم
+    background-color: #372648;
+  }
+  /* ================================================================ */
+/* === اصلاح نهایی برای نمایش دائمی و صحیح جدول گزارش === */
+/* ================================================================ */
+
+.report-table-container .table {
+    color: #4F5050; // رنگ متن پیش‌فرض برای تم روشن
+}
+
+body.dark-mode .report-table-container .table {
+    color: #c7c7c7; // رنگ متن پیش‌فرض برای تم تاریک
+}
+
+.report-table-container .table thead th {
+    color: #958d9e; // رنگ هدر در تم روشن
+    font-weight: 500;
+}
+
+body.dark-mode .report-table-container .table thead th {
+    color: #8f82a5; // رنگ هدر در تم تاریک
+}
+
+.report-table-container .empty-row td {
+    text-align: center;
+    padding: 20px;
+    color: #958d9e;
+}
+body.dark-mode .report-table-container .empty-row td {
+    color: #8f82a5;
+}

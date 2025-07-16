@@ -1,0 +1,88 @@
+/* Register Page Styles - Following React Best Practices */
+
+.registerContainer {
+    padding-bottom: 100px;
+}
+
+.walletCard {
+    background-color: #f8f9fa;
+}
+
+.walletIcon {
+    font-size: 24px;
+    color: #28a745;
+}
+
+.walletAddress {
+    font-family: monospace;
+    font-size: 0.85em;
+    color: #000;
+}
+
+.formLabel {
+    font-size: 0.9em;
+}
+
+.autoFilledLabel {
+    color: #28a745;
+    font-size: small;
+    margin-left: 8px;
+    font-weight: 500;
+}
+
+/* Mobile-specific improvements */
+@media (max-width: 767.98px) {
+    .autoFilledLabel {
+        font-size: 0.75rem;
+        margin-left: 6px;
+    }
+}
+
+.walletInput {
+    font-family: monospace;
+    font-size: 0.9em;
+    cursor: default;
+}
+
+.formInput {
+    font-size: 0.9em;
+}
+
+.walletInputIcon {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.buttonContainer {
+    margin-top: 1.5rem;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.termsText {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.termsText p {
+    color: #6c757d;
+    font-size: small;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .registerContainer {
+        padding-bottom: 120px;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .walletCard {
+        background-color: #2d3748;
+    }
+
+    .walletAddress {
+        color: #e2e8f0;
+    }
+}
