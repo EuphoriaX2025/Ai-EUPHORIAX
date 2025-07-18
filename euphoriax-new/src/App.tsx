@@ -1,60 +1,64 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
-import { useEffect, Suspense, lazy } from 'react'
-import { Layout } from './components/Layout'
-import { Loader } from './components/Loader'
-import { ProtectedRoute } from './components/ProtectedRoute'
-import { initializeApp } from './utils/appInitialization'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useEffect, Suspense, lazy } from 'react';
 
-// آفرین! این بخش و خط بعدی را کاملاً درست اضافه کرده بودی
-import PackagesPage from './pages/Packages'; 
+// کامپوننت‌های اصلی و ابزارهای کمکی
+import { Layout } from './components/Layout';
+import { Loader } from './components/Loader';
+import { ProtectedRoute } from './components/ProtectedRoute';
+import { initializeApp } from './utils/appInitialization';
+import { useMobileWallet, useWalletCompatibility } from './hooks/useMobileWallet';
+import { isMobile } from './utils/mobile';
 
-// Lazy load pages for code splitting
-const Dashboard = lazy(() => import('./pages/Dashboard').then(module => ({ default: module.Dashboard })))
-const Login = lazy(() => import('./pages/Login').then(module => ({ default: module.Login })))
-const Register = lazy(() => import('./pages/Register').then(module => ({ default: module.Register })))
-const Cards = lazy(() => import('./pages/Cards').then(module => ({ default: module.Cards })))
-const Settings = lazy(() => import('./pages/Settings').then(module => ({ default: module.Settings })))
-const Exchange = lazy(() => import('./pages/Exchange').then(module => ({ default: module.Exchange })))
-const CoinDetail = lazy(() => import('./pages/CoinDetail').then(module => ({ default: module.CoinDetail })))
-const Transactions = lazy(() => import('./pages/Transactions').then(module => ({ default: module.Transactions })))
-const TransactionDetail = lazy(() => import('./pages/TransactionDetail').then(module => ({ default: module.TransactionDetail })))
-const Explore = lazy(() => import('./pages/Explore').then(module => ({ default: module.Explore })))
-const AddressValidationDemo = lazy(() => import('./components/AddressValidationDemo').then(module => ({ default: module.default })))
+// وارد کردن استایل‌ها
+import './styles/style.scss';
+import './styles/mobile-wallet.css';
 
-import { useMobileWallet, useWalletCompatibility } from './hooks/useMobileWallet'
-import { isMobile } from './utils/mobile'
-import './styles/style.scss'
-import './styles/mobile-wallet.css'
+// بارگذاری هوشمند صفحات موجود
+const Dashboard = lazy(() => import('./pages/Dashboard').then(module => ({ default: module.Dashboard })));
+const Login = lazy(() => import('./pages/Login').then(module => ({ default: module.Login })));
+const Register = lazy(() => import('./pages/Register').then(module => ({ default: module.Register })));
+const Cards = lazy(() => import('./pages/Cards').then(module => ({ default: module.Cards })));
+const Settings = lazy(() => import('./pages/Settings').then(module => ({ default: module.Settings })));
+const Exchange = lazy(() => import('./pages/Exchange').then(module => ({ default: module.Exchange })));
+const CoinDetail = lazy(() => import('./pages/CoinDetail').then(module => ({ default: module.CoinDetail })));
+const Transactions = lazy(() => import('./pages/Transactions').then(module => ({ default: module.Transactions })));
+const TransactionDetail = lazy(() => import('./pages/TransactionDetail').then(module => ({ default: module.TransactionDetail })));
+const Explore = lazy(() => import('./pages/Explore').then(module => ({ default: module.Explore })));
+
+// تعریف دو سیاره‌ی مربوط به پکیج‌ها طبق معماری نهایی
+const Packages = lazy(() => import('./pages/Packages'));
+const PackagesInfo = lazy(() => import('./pages/PackagesInfo'));
+
 
 function App() {
-  const mobileWallet = useMobileWallet()
-  const compatibility = useWalletCompatibility()
-  const mobile = isMobile()
+  const mobileWallet = useMobileWallet();
+  const compatibility = useWalletCompatibility();
+  const mobile = isMobile();
 
   useEffect(() => {
-    initializeApp()
-    document.body.classList.add('dark-mode')
+    initializeApp();
+    document.body.classList.add('dark-mode');
     if (mobile) {
-      document.body.classList.add('mobile-device')
-      if (mobileWallet.isIOS) document.body.classList.add('ios-device')
-      if (mobileWallet.isAndroid) document.body.classList.add('android-device')
+      document.body.classList.add('mobile-device');
+      if (mobileWallet.isIOS) document.body.classList.add('ios-device');
+      if (mobileWallet.isAndroid) document.body.classList.add('android-device');
     }
     if (process.env.NODE_ENV === 'development') {
       console.log('Wallet Environment:', {
         mobile,
         compatibility,
         detectedWallets: mobileWallet.detectedWallets,
-        recommendedConnection: mobileWallet.recommendedConnection
-      })
+        recommendedConnection: mobileWallet.recommendedConnection,
+      });
     }
-  }, [mobile, mobileWallet, compatibility])
+  }, [mobile, mobileWallet, compatibility]);
 
   useEffect(() => {
     if (!compatibility.isChecking && !compatibility.isCompatible && compatibility.reasons.length > 0) {
-      console.warn('Wallet compatibility issues:', compatibility.reasons)
-      console.warn('Recommendations:', compatibility.recommendations)
+      console.warn('Wallet compatibility issues:', compatibility.reasons);
+      console.warn('Recommendations:', compatibility.recommendations);
     }
-  }, [compatibility])
+  }, [compatibility]);
 
   return (
     <Router>
@@ -81,7 +85,6 @@ function App() {
             </div>
           </div>
         )}
-
         <Routes>
           <Route path="/login" element={
             <Suspense fallback={<Loader />}>
@@ -89,7 +92,7 @@ function App() {
             </Suspense>
           } />
           <Route element={<ProtectedRoute requireWallet={true}><Layout /></ProtectedRoute>}>
-            <Route path="/" element={
+            <Route index element={
               <Suspense fallback={<Loader />}>
                 <Dashboard />
               </Suspense>
@@ -104,16 +107,6 @@ function App() {
                 <Cards />
               </Suspense>
             } />
-            
-            {/* ================================================================ */}
-            {/* ====> این همان مسیر جدید است که در جایگاه صحیح خود قرار گرفته <==== */}
-            <Route path="/packages" element={
-              <Suspense fallback={<Loader />}>
-                <PackagesPage />
-              </Suspense>
-            } />
-            {/* ================================================================ */}
-
             <Route path="/settings" element={
               <Suspense fallback={<Loader />}>
                 <Settings />
@@ -144,12 +137,21 @@ function App() {
                 <TransactionDetail />
               </Suspense>
             } />
-            <Route path="/address-validation-demo" element={
+            
+            {/* نقشه راه نهایی برای پکیج‌ها */}
+            <Route path="/packagesinfo" element={
               <Suspense fallback={<Loader />}>
-                <AddressValidationDemo />
+                <PackagesInfo />
               </Suspense>
             } />
+            <Route path="/packages/buy" element={
+              <Suspense fallback={<Loader />}>
+                <Packages />
+              </Suspense>
+            } />
+            
           </Route>
+
           <Route path="*" element={
             <ProtectedRoute requireWallet={true}>
               <Navigate to="/" replace />
@@ -158,7 +160,7 @@ function App() {
         </Routes>
       </div>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;

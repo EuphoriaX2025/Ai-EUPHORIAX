@@ -6,6 +6,7 @@ import { IonIcon } from '@ionic/react';
 import { useAccount } from 'wagmi';
 import {
   closeOutline,
+  diamondOutline,
   addOutline,
   arrowForwardOutline,
   cardOutline,
@@ -18,6 +19,7 @@ import {
   gitNetworkOutline,
   arrowDownOutline,
   mapOutline,
+  informationCircleOutline,
   createOutline,
 } from 'ionicons/icons';
 
@@ -35,6 +37,7 @@ const truncateAddress = (address: string) => {
 
 // تابع برای ایجاد عدد تصادفی ۴ رقمی
 const generateRandomSuffix = () => Math.floor(1000 + Math.random() * 9000).toString();
+
 export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   // دریافت اطلاعات کیف پول متصل شده از wagmi
   const { address } = useAccount();
@@ -43,7 +46,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   // استیت برای مدیریت نام کاربری قابل ویرایش با مقدار پیش‌فرض جدید
   const [username, setUsername] = useState(`Titan_${generateRandomSuffix()}`);
 
-  // تمام کدهای JSX که ظاهر کامپوننت را می‌سازند، در بخش بعدی قرار خواهند گرفت
   return (
     <>
       {/* هاله تیره پس‌زمینه که با کلیک روی آن، منو بسته می‌شود */}
@@ -96,19 +98,30 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
               {/* گروه دکمه‌های اقدام سریع */}
               <div className="action-group">
                 <a href="#" className="action-button">
-                  <div className="in"><div className="iconbox"><IonIcon icon={addOutline}></IonIcon></div>Live Stats</div>
+                  <div className="in">
+                    <div className="iconbox"><IonIcon icon={addOutline}></IonIcon></div>
+                    Live Stats
+                  </div>
                 </a>
                 <a href="#" className="action-button">
-                  <div className="in"><div className="iconbox"><IonIcon icon={peopleOutline}></IonIcon></div>Team</div>
+                  <div className="in">
+                    <div className="iconbox"><IonIcon icon={arrowDownOutline}></IonIcon></div>
+                    Receive
+                  </div>
                 </a>
                 <Link to="/packages" className="action-button" onClick={onClose}>
-                  <div className="in"><div className="iconbox"><IonIcon icon={cardOutline}></IonIcon></div>Activate</div>
+                  <div className="in">
+                    <div className="iconbox"><IonIcon icon={diamondOutline}></IonIcon></div>
+                    Activate
+                  </div>
                 </Link>
                 <a href="#" className="action-button">
-                  <div className="in"><div className="iconbox"><IonIcon icon={arrowForwardOutline}></IonIcon></div>Send</div>
+                  <div className="in">
+                    <div className="iconbox"><IonIcon icon={arrowForwardOutline}></IonIcon></div>
+                    Send
+                  </div>
                 </a>
               </div>
-
               {/* منوی اصلی */}
               <div className="listview-title mt-1">Menu</div>
               <ul className="listview flush transparent no-line image-listview">
@@ -119,9 +132,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/packages" className="item" onClick={onClose}>
-                    <div className="icon-box bg-primary"><IonIcon icon={cardOutline}></IonIcon></div>
-                    <div className="in">Packages</div>
+                  <Link to="/packagesinfo" className="item" onClick={onClose}>
+                    <div className="icon-box bg-primary"><IonIcon icon={informationCircleOutline}></IonIcon></div>
+                    <div className="in">Packages Info</div>
                   </Link>
                 </li>
                 <li>
@@ -136,7 +149,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                     <div className="in">Network</div>
                   </a>
                 </li>
-                 <li>
+                <li>
                   <a href="#" className="item" onClick={onClose}>
                     <div className="icon-box bg-primary"><IonIcon icon={layersOutline}></IonIcon></div>
                     <div className="in">Account</div>
