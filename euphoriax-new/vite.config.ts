@@ -3,6 +3,9 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
+  // این خط را اضافه کنید
+  base: '/Ai-EUPHORIAX/',
+
   plugins: [react()],
   define: {
     global: 'globalThis',
