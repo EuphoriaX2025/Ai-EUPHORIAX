@@ -23,17 +23,14 @@ jobs:
           node-version: "20"
 
       - name: Install dependencies
-        # این دستور در ریشه اجرا می‌شود
         run: npm install
 
       - name: Build
-        # این دستور هم در ریشه اجرا می‌شود
         run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # مسیر خروجی بیلد در ریشه است
           path: './dist'
 
   deploy:
