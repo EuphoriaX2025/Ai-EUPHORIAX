@@ -24,14 +24,19 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        # به ربات می‌گوییم وارد پوشه صحیح شود
+        working-directory: ./Ai-EUPHORIAX
 
       - name: Build
         run: npm run build
+        # بیلد را هم در همان پوشه اجرا می‌کنیم
+        working-directory: ./Ai-EUPHORIAX
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
+          # خروجی را از مسیر صحیح برمی‌داریم
+          path: './Ai-EUPHORIAX/dist'
 
   deploy:
     needs: build
