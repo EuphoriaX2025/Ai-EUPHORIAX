@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "EuphoriaX - Crypto Fintech Mobile Web Application",
+  "description": "EuphoriaX - Crypto Fintech Mobile Web Application.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
