@@ -17,9 +17,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: List files in the repository
-        run: ls -R
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -27,14 +24,16 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: ./euphoriax-new
 
       - name: Build
         run: npm run build
+        working-directory: ./euphoriax-new
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
+          path: './euphoriax-new/dist'
 
   deploy:
     needs: build
