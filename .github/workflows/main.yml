@@ -17,6 +17,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: List files in the repository
+        run: ls -R
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -24,19 +27,14 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        # به ربات می‌گوییم وارد پوشه صحیح شود
-        working-directory: ./Ai-EUPHORIAX
 
       - name: Build
         run: npm run build
-        # بیلد را هم در همان پوشه اجرا می‌کنیم
-        working-directory: ./Ai-EUPHORIAX
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # خروجی را از مسیر صحیح برمی‌داریم
-          path: './Ai-EUPHORIAX/dist'
+          path: './dist'
 
   deploy:
     needs: build
